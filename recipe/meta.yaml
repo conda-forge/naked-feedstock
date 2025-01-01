@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/Naked-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/Naked-{{ version }}.tar.gz
   sha256: f81015107e3aefdc801d7144fbae214bdf3cb179c0020a1dc6d5acb3659d5d5c
 
 build:
@@ -14,14 +14,14 @@ build:
     - naked = Naked.app:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - requests
     - pyyaml
 
@@ -33,6 +33,7 @@ test:
     - naked --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/chrissimpkins/naked
